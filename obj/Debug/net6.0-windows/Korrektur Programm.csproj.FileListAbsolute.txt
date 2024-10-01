@@ -1,0 +1,29 @@
+C:\Users\Moham\source\repos\Korrektur Programm\bin\Debug\net6.0-windows\Korrektur Programm.exe
+C:\Users\Moham\source\repos\Korrektur Programm\bin\Debug\net6.0-windows\Korrektur Programm.deps.json
+C:\Users\Moham\source\repos\Korrektur Programm\bin\Debug\net6.0-windows\Korrektur Programm.runtimeconfig.json
+C:\Users\Moham\source\repos\Korrektur Programm\bin\Debug\net6.0-windows\Korrektur Programm.dll
+C:\Users\Moham\source\repos\Korrektur Programm\bin\Debug\net6.0-windows\Korrektur Programm.pdb
+C:\Users\Moham\source\repos\Korrektur Programm\obj\Debug\net6.0-windows\Korrektur Programm.csproj.AssemblyReference.cache
+C:\Users\Moham\source\repos\Korrektur Programm\obj\Debug\net6.0-windows\Korrektur_Programm.Form1.resources
+C:\Users\Moham\source\repos\Korrektur Programm\obj\Debug\net6.0-windows\Korrektur Programm.csproj.GenerateResource.cache
+C:\Users\Moham\source\repos\Korrektur Programm\obj\Debug\net6.0-windows\Korrektur Programm.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Moham\source\repos\Korrektur Programm\obj\Debug\net6.0-windows\Korrektur Programm.AssemblyInfoInputs.cache
+C:\Users\Moham\source\repos\Korrektur Programm\obj\Debug\net6.0-windows\Korrektur Programm.AssemblyInfo.cs
+C:\Users\Moham\source\repos\Korrektur Programm\obj\Debug\net6.0-windows\Korrektur Programm.csproj.CoreCompileInputs.cache
+C:\Users\Moham\source\repos\Korrektur Programm\obj\Debug\net6.0-windows\Korrektur Programm.dll
+C:\Users\Moham\source\repos\Korrektur Programm\obj\Debug\net6.0-windows\refint\Korrektur Programm.dll
+C:\Users\Moham\source\repos\Korrektur Programm\obj\Debug\net6.0-windows\Korrektur Programm.pdb
+C:\Users\Moham\source\repos\Korrektur Programm\obj\Debug\net6.0-windows\Korrektur Programm.genruntimeconfig.cache
+C:\Users\Moham\source\repos\Korrektur Programm\obj\Debug\net6.0-windows\ref\Korrektur Programm.dll
+C:\Users\Moham\source\repos\Korrektur Programm\bin\Debug\net6.0-windows\MySql.Data.dll
+C:\Users\Moham\source\repos\Korrektur Programm\bin\Debug\net6.0-windows\Google.Protobuf.dll
+C:\Users\Moham\source\repos\Korrektur Programm\bin\Debug\net6.0-windows\ZstdNet.dll
+C:\Users\Moham\source\repos\Korrektur Programm\bin\Debug\net6.0-windows\K4os.Compression.LZ4.Streams.dll
+C:\Users\Moham\source\repos\Korrektur Programm\bin\Debug\net6.0-windows\BouncyCastle.Crypto.dll
+C:\Users\Moham\source\repos\Korrektur Programm\bin\Debug\net6.0-windows\Ubiety.Dns.Core.dll
+C:\Users\Moham\source\repos\Korrektur Programm\bin\Debug\net6.0-windows\K4os.Compression.LZ4.dll
+C:\Users\Moham\source\repos\Korrektur Programm\bin\Debug\net6.0-windows\K4os.Hash.xxHash.dll
+C:\Users\Moham\source\repos\Korrektur Programm\bin\Debug\net6.0-windows\MySql.Data.xml
+C:\Users\Moham\source\repos\Korrektur Programm\obj\Debug\net6.0-windows\Korrektur_Programm.Breite_Und_Druck.resources
+C:\Users\Moham\source\repos\Korrektur Programm\obj\Debug\net6.0-windows\Korrektur_Programm.Druck_Position.resources
+C:\Users\Moham\source\repos\Korrektur Programm\obj\Debug\net6.0-windows\Korrektur Programm.csproj.CopyComplete
