@@ -28,7 +28,7 @@ namespace Korrektur_Programm
         private List<TextBox> H_Werte = new List<TextBox> { };
         private List<TextBox> Zeichen = new List<TextBox> { };
         private int Schriftgröße;
-        private TextBox X_neu, H_neu;
+        private TextBox X_neu, Y_neu, H_neu;
 
 
         public Druck_Position(int schriftgröße)
@@ -732,6 +732,31 @@ namespace Korrektur_Programm
                     }
                 }
             }
+            foreach (TextBox t in Y_Werte)
+            {
+                if (t.Text != t.Tag.ToString())
+                {
+                    string connStr = "server=localhost;user=root;database=movedb;port=3306;password=6540";
+                    MySqlConnection conn = new(connStr);
+                    try
+                    {
+                        conn.Open();
+                        string c = Y_Dict[t].Text;
+                        if (c == "\\") { c = "\\\\"; }
+                        else if (c == "\'") { c = "\\\'"; }
+                        string sql = "update tabelle" + Schriftgröße + " set YPos = " + t.Text + " where Zeichen = '" + c + "' COLLATE utf8mb4_bin;";
+                        MySqlCommand cmd = new(sql, conn);
+                        cmd.ExecuteNonQuery();
+                        if (c == "O") { sql = "update tabelle" + Schriftgröße + " set YPos = " + t.Text + " where Zeichen = \'0\' COLLATE utf8mb4_bin;"; }
+                        cmd = new(sql, conn);
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                }
+            }
             foreach (TextBox t in H_Werte)
             {
                 if (t.Text != t.Tag.ToString())
@@ -774,14 +799,27 @@ namespace Korrektur_Programm
         }
         private void Rechts_Click(object sender, EventArgs e)
         {
-            X_neu.Text = (Int32.Parse(X_neu.Text) + 10).ToString();
+            if (Schriftgröße == 1 || Schriftgröße == 2 || Schriftgröße == 3)
+            {
+                X_neu.Text = (Int32.Parse(X_neu.Text) + 10).ToString();
+            }
+            else
+            {
+                Y_neu.Text = (Int32.Parse(Y_neu.Text) - 10).ToString();
+            }
         }
 
         private void Links_Click(object sender, EventArgs e)
         {
-            X_neu.Text = (Int32.Parse(X_neu.Text) - 10).ToString();
+            if (Schriftgröße == 1 || Schriftgröße == 2 || Schriftgröße == 3)
+            {
+                X_neu.Text = (Int32.Parse(X_neu.Text) - 10).ToString();
+            }
+            else
+            {
+                Y_neu.Text = (Int32.Parse(Y_neu.Text) + 10).ToString();
+            }
         }
-
         private void Höher_Click(object sender, EventArgs e)
         {
             H_neu.Text = (Int32.Parse(H_neu.Text) + 10).ToString();
@@ -794,84 +832,84 @@ namespace Korrektur_Programm
 
 
         // Click Abschnitt
-        private void textBox4_Click(object sender, EventArgs e) { X_neu = textBox3; H_neu = textBox1; Weiß(); textBox4.BackColor = Color.LightGray; }
-        private void textBox8_Click(object sender, EventArgs e) { X_neu = textBox7; H_neu = textBox5; Weiß(); textBox8.BackColor = Color.LightGray; }
-        private void textBox12_Click(object sender, EventArgs e) { X_neu = textBox11; H_neu = textBox9; Weiß(); textBox12.BackColor = Color.LightGray; }
-        private void textBox16_Click(object sender, EventArgs e) { X_neu = textBox15; H_neu = textBox13; Weiß(); textBox16.BackColor = Color.LightGray; }
-        private void textBox20_Click(object sender, EventArgs e) { X_neu = textBox19; H_neu = textBox17; Weiß(); textBox20.BackColor = Color.LightGray; }
-        private void textBox24_Click(object sender, EventArgs e) { X_neu = textBox23; H_neu = textBox21; Weiß(); textBox24.BackColor = Color.LightGray; }
-        private void textBox28_Click(object sender, EventArgs e) { X_neu = textBox27; H_neu = textBox25; Weiß(); textBox28.BackColor = Color.LightGray; }
-        private void textBox32_Click(object sender, EventArgs e) { X_neu = textBox31; H_neu = textBox29; Weiß(); textBox32.BackColor = Color.LightGray; }
-        private void textBox36_Click(object sender, EventArgs e) { X_neu = textBox35; H_neu = textBox33; Weiß(); textBox36.BackColor = Color.LightGray; }
-        private void textBox40_Click(object sender, EventArgs e) { X_neu = textBox39; H_neu = textBox37; Weiß(); textBox40.BackColor = Color.LightGray; }
-        private void textBox44_Click(object sender, EventArgs e) { X_neu = textBox43; H_neu = textBox41; Weiß(); textBox44.BackColor = Color.LightGray; }
-        private void textBox48_Click(object sender, EventArgs e) { X_neu = textBox47; H_neu = textBox45; Weiß(); textBox48.BackColor = Color.LightGray; }
-        private void textBox52_Click(object sender, EventArgs e) { X_neu = textBox51; H_neu = textBox49; Weiß(); textBox52.BackColor = Color.LightGray; }
-        private void textBox56_Click(object sender, EventArgs e) { X_neu = textBox55; H_neu = textBox53; Weiß(); textBox56.BackColor = Color.LightGray; }
-        private void textBox60_Click(object sender, EventArgs e) { X_neu = textBox59; H_neu = textBox57; Weiß(); textBox60.BackColor = Color.LightGray; }
-        private void textBox64_Click(object sender, EventArgs e) { X_neu = textBox63; H_neu = textBox61; Weiß(); textBox64.BackColor = Color.LightGray; }
-        private void textBox68_Click(object sender, EventArgs e) { X_neu = textBox67; H_neu = textBox65; Weiß(); textBox68.BackColor = Color.LightGray; }
-        private void textBox72_Click(object sender, EventArgs e) { X_neu = textBox71; H_neu = textBox69; Weiß(); textBox72.BackColor = Color.LightGray; }
-        private void textBox76_Click(object sender, EventArgs e) { X_neu = textBox75; H_neu = textBox73; Weiß(); textBox76.BackColor = Color.LightGray; }
-        private void textBox80_Click(object sender, EventArgs e) { X_neu = textBox79; H_neu = textBox77; Weiß(); textBox80.BackColor = Color.LightGray; }
-        private void textBox84_Click(object sender, EventArgs e) { X_neu = textBox83; H_neu = textBox81; Weiß(); textBox84.BackColor = Color.LightGray; }
-        private void textBox88_Click(object sender, EventArgs e) { X_neu = textBox87; H_neu = textBox85; Weiß(); textBox88.BackColor = Color.LightGray; }
-        private void textBox92_Click(object sender, EventArgs e) { X_neu = textBox91; H_neu = textBox89; Weiß(); textBox92.BackColor = Color.LightGray; }
-        private void textBox96_Click(object sender, EventArgs e) { X_neu = textBox95; H_neu = textBox93; Weiß(); textBox96.BackColor = Color.LightGray; }
-        private void textBox100_Click(object sender, EventArgs e) { X_neu = textBox99; H_neu = textBox97; Weiß(); textBox100.BackColor = Color.LightGray; }
-        private void textBox104_Click(object sender, EventArgs e) { X_neu = textBox103; H_neu = textBox101; Weiß(); textBox104.BackColor = Color.LightGray; }
-        private void textBox108_Click(object sender, EventArgs e) { X_neu = textBox107; H_neu = textBox105; Weiß(); textBox108.BackColor = Color.LightGray; }
-        private void textBox112_Click(object sender, EventArgs e) { X_neu = textBox111; H_neu = textBox109; Weiß(); textBox112.BackColor = Color.LightGray; }
-        private void textBox116_Click(object sender, EventArgs e) { X_neu = textBox115; H_neu = textBox113; Weiß(); textBox116.BackColor = Color.LightGray; }
-        private void textBox120_Click(object sender, EventArgs e) { X_neu = textBox119; H_neu = textBox117; Weiß(); textBox120.BackColor = Color.LightGray; }
-        private void textBox124_Click(object sender, EventArgs e) { X_neu = textBox123; H_neu = textBox121; Weiß(); textBox124.BackColor = Color.LightGray; }
-        private void textBox128_Click(object sender, EventArgs e) { X_neu = textBox127; H_neu = textBox125; Weiß(); textBox128.BackColor = Color.LightGray; }
-        private void textBox132_Click(object sender, EventArgs e) { X_neu = textBox131; H_neu = textBox129; Weiß(); textBox132.BackColor = Color.LightGray; }
-        private void textBox136_Click(object sender, EventArgs e) { X_neu = textBox135; H_neu = textBox133; Weiß(); textBox136.BackColor = Color.LightGray; }
-        private void textBox140_Click(object sender, EventArgs e) { X_neu = textBox139; H_neu = textBox137; Weiß(); textBox140.BackColor = Color.LightGray; }
-        private void textBox144_Click(object sender, EventArgs e) { X_neu = textBox143; H_neu = textBox141; Weiß(); textBox144.BackColor = Color.LightGray; }
-        private void textBox148_Click(object sender, EventArgs e) { X_neu = textBox147; H_neu = textBox145; Weiß(); textBox148.BackColor = Color.LightGray; }
-        private void textBox152_Click(object sender, EventArgs e) { X_neu = textBox151; H_neu = textBox149; Weiß(); textBox152.BackColor = Color.LightGray; }
-        private void textBox156_Click(object sender, EventArgs e) { X_neu = textBox155; H_neu = textBox153; Weiß(); textBox156.BackColor = Color.LightGray; }
-        private void textBox160_Click(object sender, EventArgs e) { X_neu = textBox159; H_neu = textBox157; Weiß(); textBox160.BackColor = Color.LightGray; }
-        private void textBox164_Click(object sender, EventArgs e) { X_neu = textBox163; H_neu = textBox161; Weiß(); textBox164.BackColor = Color.LightGray; }
-        private void textBox168_Click(object sender, EventArgs e) { X_neu = textBox167; H_neu = textBox165; Weiß(); textBox168.BackColor = Color.LightGray; }
-        private void textBox172_Click(object sender, EventArgs e) { X_neu = textBox171; H_neu = textBox169; Weiß(); textBox172.BackColor = Color.LightGray; }
-        private void textBox176_Click(object sender, EventArgs e) { X_neu = textBox175; H_neu = textBox173; Weiß(); textBox176.BackColor = Color.LightGray; }
-        private void textBox180_Click(object sender, EventArgs e) { X_neu = textBox179; H_neu = textBox177; Weiß(); textBox180.BackColor = Color.LightGray; }
-        private void textBox184_Click(object sender, EventArgs e) { X_neu = textBox183; H_neu = textBox181; Weiß(); textBox184.BackColor = Color.LightGray; }
-        private void textBox188_Click(object sender, EventArgs e) { X_neu = textBox187; H_neu = textBox185; Weiß(); textBox188.BackColor = Color.LightGray; }
-        private void textBox192_Click(object sender, EventArgs e) { X_neu = textBox191; H_neu = textBox189; Weiß(); textBox192.BackColor = Color.LightGray; }
-        private void textBox196_Click(object sender, EventArgs e) { X_neu = textBox195; H_neu = textBox193; Weiß(); textBox196.BackColor = Color.LightGray; }
-        private void textBox200_Click(object sender, EventArgs e) { X_neu = textBox199; H_neu = textBox197; Weiß(); textBox200.BackColor = Color.LightGray; }
-        private void textBox204_Click(object sender, EventArgs e) { X_neu = textBox203; H_neu = textBox201; Weiß(); textBox204.BackColor = Color.LightGray; }
-        private void textBox208_Click(object sender, EventArgs e) { X_neu = textBox207; H_neu = textBox205; Weiß(); textBox208.BackColor = Color.LightGray; }
-        private void textBox212_Click(object sender, EventArgs e) { X_neu = textBox211; H_neu = textBox209; Weiß(); textBox212.BackColor = Color.LightGray; }
-        private void textBox216_Click(object sender, EventArgs e) { X_neu = textBox215; H_neu = textBox213; Weiß(); textBox216.BackColor = Color.LightGray; }
-        private void textBox220_Click(object sender, EventArgs e) { X_neu = textBox219; H_neu = textBox217; Weiß(); textBox220.BackColor = Color.LightGray; }
-        private void textBox224_Click(object sender, EventArgs e) { X_neu = textBox223; H_neu = textBox221; Weiß(); textBox224.BackColor = Color.LightGray; }
-        private void textBox228_Click(object sender, EventArgs e) { X_neu = textBox227; H_neu = textBox225; Weiß(); textBox228.BackColor = Color.LightGray; }
-        private void textBox232_Click(object sender, EventArgs e) { X_neu = textBox231; H_neu = textBox229; Weiß(); textBox232.BackColor = Color.LightGray; }
-        private void textBox236_Click(object sender, EventArgs e) { X_neu = textBox235; H_neu = textBox233; Weiß(); textBox236.BackColor = Color.LightGray; }
-        private void textBox240_Click(object sender, EventArgs e) { X_neu = textBox239; H_neu = textBox237; Weiß(); textBox240.BackColor = Color.LightGray; }
-        private void textBox244_Click(object sender, EventArgs e) { X_neu = textBox243; H_neu = textBox241; Weiß(); textBox244.BackColor = Color.LightGray; }
-        private void textBox248_Click(object sender, EventArgs e) { X_neu = textBox247; H_neu = textBox245; Weiß(); textBox248.BackColor = Color.LightGray; }
-        private void textBox252_Click(object sender, EventArgs e) { X_neu = textBox251; H_neu = textBox249; Weiß(); textBox252.BackColor = Color.LightGray; }
-        private void textBox256_Click(object sender, EventArgs e) { X_neu = textBox255; H_neu = textBox253; Weiß(); textBox256.BackColor = Color.LightGray; }
-        private void textBox260_Click(object sender, EventArgs e) { X_neu = textBox259; H_neu = textBox257; Weiß(); textBox260.BackColor = Color.LightGray; }
-        private void textBox264_Click(object sender, EventArgs e) { X_neu = textBox263; H_neu = textBox261; Weiß(); textBox264.BackColor = Color.LightGray; }
-        private void textBox268_Click(object sender, EventArgs e) { X_neu = textBox267; H_neu = textBox265; Weiß(); textBox268.BackColor = Color.LightGray; }
-        private void textBox272_Click(object sender, EventArgs e) { X_neu = textBox271; H_neu = textBox269; Weiß(); textBox272.BackColor = Color.LightGray; }
-        private void textBox276_Click(object sender, EventArgs e) { X_neu = textBox275; H_neu = textBox273; Weiß(); textBox276.BackColor = Color.LightGray; }
-        private void textBox280_Click(object sender, EventArgs e) { X_neu = textBox279; H_neu = textBox277; Weiß(); textBox280.BackColor = Color.LightGray; }
-        private void textBox284_Click(object sender, EventArgs e) { X_neu = textBox283; H_neu = textBox281; Weiß(); textBox284.BackColor = Color.LightGray; }
-        private void textBox288_Click(object sender, EventArgs e) { X_neu = textBox287; H_neu = textBox285; Weiß(); textBox288.BackColor = Color.LightGray; }
-        private void textBox292_Click(object sender, EventArgs e) { X_neu = textBox291; H_neu = textBox289; Weiß(); textBox292.BackColor = Color.LightGray; }
-        private void textBox296_Click(object sender, EventArgs e) { X_neu = textBox295; H_neu = textBox293; Weiß(); textBox296.BackColor = Color.LightGray; }
-        private void textBox300_Click(object sender, EventArgs e) { X_neu = textBox299; H_neu = textBox297; Weiß(); textBox300.BackColor = Color.LightGray; }
-        private void textBox304_Click(object sender, EventArgs e) { X_neu = textBox303; H_neu = textBox301; Weiß(); textBox304.BackColor = Color.LightGray; }
-        private void textBox308_Click(object sender, EventArgs e) { X_neu = textBox307; H_neu = textBox305; Weiß(); textBox308.BackColor = Color.LightGray; }
-        private void textBox312_Click(object sender, EventArgs e) { X_neu = textBox311; H_neu = textBox309; Weiß(); textBox312.BackColor = Color.LightGray; }
+        private void textBox4_Click(object sender, EventArgs e) { X_neu = textBox3; Y_neu = textBox2; H_neu = textBox1; Weiß(); textBox4.BackColor = Color.LightGray; }
+        private void textBox8_Click(object sender, EventArgs e) { X_neu = textBox7; Y_neu = textBox6; H_neu = textBox5; Weiß(); textBox8.BackColor = Color.LightGray; }
+        private void textBox12_Click(object sender, EventArgs e) { X_neu = textBox11; Y_neu = textBox10; H_neu = textBox9; Weiß(); textBox12.BackColor = Color.LightGray; }
+        private void textBox16_Click(object sender, EventArgs e) { X_neu = textBox15; Y_neu = textBox14; H_neu = textBox13; Weiß(); textBox16.BackColor = Color.LightGray; }
+        private void textBox20_Click(object sender, EventArgs e) { X_neu = textBox19; Y_neu = textBox18; H_neu = textBox17; Weiß(); textBox20.BackColor = Color.LightGray; }
+        private void textBox24_Click(object sender, EventArgs e) { X_neu = textBox23; Y_neu = textBox22; H_neu = textBox21; Weiß(); textBox24.BackColor = Color.LightGray; }
+        private void textBox28_Click(object sender, EventArgs e) { X_neu = textBox27; Y_neu = textBox26; H_neu = textBox25; Weiß(); textBox28.BackColor = Color.LightGray; }
+        private void textBox32_Click(object sender, EventArgs e) { X_neu = textBox31; Y_neu = textBox30; H_neu = textBox29; Weiß(); textBox32.BackColor = Color.LightGray; }
+        private void textBox36_Click(object sender, EventArgs e) { X_neu = textBox35; Y_neu = textBox34; H_neu = textBox33; Weiß(); textBox36.BackColor = Color.LightGray; }
+        private void textBox40_Click(object sender, EventArgs e) { X_neu = textBox39; Y_neu = textBox38; H_neu = textBox37; Weiß(); textBox40.BackColor = Color.LightGray; }
+        private void textBox44_Click(object sender, EventArgs e) { X_neu = textBox43; Y_neu = textBox42; H_neu = textBox41; Weiß(); textBox44.BackColor = Color.LightGray; }
+        private void textBox48_Click(object sender, EventArgs e) { X_neu = textBox47; Y_neu = textBox46; H_neu = textBox45; Weiß(); textBox48.BackColor = Color.LightGray; }
+        private void textBox52_Click(object sender, EventArgs e) { X_neu = textBox51; Y_neu = textBox50; H_neu = textBox49; Weiß(); textBox52.BackColor = Color.LightGray; }
+        private void textBox56_Click(object sender, EventArgs e) { X_neu = textBox55; Y_neu = textBox54; H_neu = textBox53; Weiß(); textBox56.BackColor = Color.LightGray; }
+        private void textBox60_Click(object sender, EventArgs e) { X_neu = textBox59; Y_neu = textBox58; H_neu = textBox57; Weiß(); textBox60.BackColor = Color.LightGray; }
+        private void textBox64_Click(object sender, EventArgs e) { X_neu = textBox63; Y_neu = textBox62; H_neu = textBox61; Weiß(); textBox64.BackColor = Color.LightGray; }
+        private void textBox68_Click(object sender, EventArgs e) { X_neu = textBox67; Y_neu = textBox66; H_neu = textBox65; Weiß(); textBox68.BackColor = Color.LightGray; }
+        private void textBox72_Click(object sender, EventArgs e) { X_neu = textBox71; Y_neu = textBox70; H_neu = textBox69; Weiß(); textBox72.BackColor = Color.LightGray; }
+        private void textBox76_Click(object sender, EventArgs e) { X_neu = textBox75; Y_neu = textBox74; H_neu = textBox73; Weiß(); textBox76.BackColor = Color.LightGray; }
+        private void textBox80_Click(object sender, EventArgs e) { X_neu = textBox79; Y_neu = textBox78; H_neu = textBox77; Weiß(); textBox80.BackColor = Color.LightGray; }
+        private void textBox84_Click(object sender, EventArgs e) { X_neu = textBox83; Y_neu = textBox82; H_neu = textBox81; Weiß(); textBox84.BackColor = Color.LightGray; }
+        private void textBox88_Click(object sender, EventArgs e) { X_neu = textBox87; Y_neu = textBox86; H_neu = textBox85; Weiß(); textBox88.BackColor = Color.LightGray; }
+        private void textBox92_Click(object sender, EventArgs e) { X_neu = textBox91; Y_neu = textBox90; H_neu = textBox89; Weiß(); textBox92.BackColor = Color.LightGray; }
+        private void textBox96_Click(object sender, EventArgs e) { X_neu = textBox95; Y_neu = textBox94; H_neu = textBox93; Weiß(); textBox96.BackColor = Color.LightGray; }
+        private void textBox100_Click(object sender, EventArgs e) { X_neu = textBox99; Y_neu = textBox98; H_neu = textBox97; Weiß(); textBox100.BackColor = Color.LightGray; }
+        private void textBox104_Click(object sender, EventArgs e) { X_neu = textBox103; Y_neu = textBox102; H_neu = textBox101; Weiß(); textBox104.BackColor = Color.LightGray; }
+        private void textBox108_Click(object sender, EventArgs e) { X_neu = textBox107; Y_neu = textBox106; H_neu = textBox105; Weiß(); textBox108.BackColor = Color.LightGray; }
+        private void textBox112_Click(object sender, EventArgs e) { X_neu = textBox111; Y_neu = textBox110; H_neu = textBox109; Weiß(); textBox112.BackColor = Color.LightGray; }
+        private void textBox116_Click(object sender, EventArgs e) { X_neu = textBox115; Y_neu = textBox114; H_neu = textBox113; Weiß(); textBox116.BackColor = Color.LightGray; }
+        private void textBox120_Click(object sender, EventArgs e) { X_neu = textBox119; Y_neu = textBox118; H_neu = textBox117; Weiß(); textBox120.BackColor = Color.LightGray; }
+        private void textBox124_Click(object sender, EventArgs e) { X_neu = textBox123; Y_neu = textBox122; H_neu = textBox121; Weiß(); textBox124.BackColor = Color.LightGray; }
+        private void textBox128_Click(object sender, EventArgs e) { X_neu = textBox127; Y_neu = textBox126; H_neu = textBox125; Weiß(); textBox128.BackColor = Color.LightGray; }
+        private void textBox132_Click(object sender, EventArgs e) { X_neu = textBox131; Y_neu = textBox130; H_neu = textBox129; Weiß(); textBox132.BackColor = Color.LightGray; }
+        private void textBox136_Click(object sender, EventArgs e) { X_neu = textBox135; Y_neu = textBox134; H_neu = textBox133; Weiß(); textBox136.BackColor = Color.LightGray; }
+        private void textBox140_Click(object sender, EventArgs e) { X_neu = textBox139; Y_neu = textBox138; H_neu = textBox137; Weiß(); textBox140.BackColor = Color.LightGray; }
+        private void textBox144_Click(object sender, EventArgs e) { X_neu = textBox143; Y_neu = textBox142; H_neu = textBox141; Weiß(); textBox144.BackColor = Color.LightGray; }
+        private void textBox148_Click(object sender, EventArgs e) { X_neu = textBox147; Y_neu = textBox146; H_neu = textBox145; Weiß(); textBox148.BackColor = Color.LightGray; }
+        private void textBox152_Click(object sender, EventArgs e) { X_neu = textBox151; Y_neu = textBox150; H_neu = textBox149; Weiß(); textBox152.BackColor = Color.LightGray; }
+        private void textBox156_Click(object sender, EventArgs e) { X_neu = textBox155; Y_neu = textBox154; H_neu = textBox153; Weiß(); textBox156.BackColor = Color.LightGray; }
+        private void textBox160_Click(object sender, EventArgs e) { X_neu = textBox159; Y_neu = textBox158; H_neu = textBox157; Weiß(); textBox160.BackColor = Color.LightGray; }
+        private void textBox164_Click(object sender, EventArgs e) { X_neu = textBox163; Y_neu = textBox162; H_neu = textBox161; Weiß(); textBox164.BackColor = Color.LightGray; }
+        private void textBox168_Click(object sender, EventArgs e) { X_neu = textBox167; Y_neu = textBox166; H_neu = textBox165; Weiß(); textBox168.BackColor = Color.LightGray; }
+        private void textBox172_Click(object sender, EventArgs e) { X_neu = textBox171; Y_neu = textBox170; H_neu = textBox169; Weiß(); textBox172.BackColor = Color.LightGray; }
+        private void textBox176_Click(object sender, EventArgs e) { X_neu = textBox175; Y_neu = textBox174; H_neu = textBox173; Weiß(); textBox176.BackColor = Color.LightGray; }
+        private void textBox180_Click(object sender, EventArgs e) { X_neu = textBox179; Y_neu = textBox178; H_neu = textBox177; Weiß(); textBox180.BackColor = Color.LightGray; }
+        private void textBox184_Click(object sender, EventArgs e) { X_neu = textBox183; Y_neu = textBox182; H_neu = textBox181; Weiß(); textBox184.BackColor = Color.LightGray; }
+        private void textBox188_Click(object sender, EventArgs e) { X_neu = textBox187; Y_neu = textBox186; H_neu = textBox185; Weiß(); textBox188.BackColor = Color.LightGray; }
+        private void textBox192_Click(object sender, EventArgs e) { X_neu = textBox191; Y_neu = textBox190; H_neu = textBox189; Weiß(); textBox192.BackColor = Color.LightGray; }
+        private void textBox196_Click(object sender, EventArgs e) { X_neu = textBox195; Y_neu = textBox194; H_neu = textBox193; Weiß(); textBox196.BackColor = Color.LightGray; }
+        private void textBox200_Click(object sender, EventArgs e) { X_neu = textBox199; Y_neu = textBox198; H_neu = textBox197; Weiß(); textBox200.BackColor = Color.LightGray; }
+        private void textBox204_Click(object sender, EventArgs e) { X_neu = textBox203; Y_neu = textBox202; H_neu = textBox201; Weiß(); textBox204.BackColor = Color.LightGray; }
+        private void textBox208_Click(object sender, EventArgs e) { X_neu = textBox207; Y_neu = textBox206; H_neu = textBox205; Weiß(); textBox208.BackColor = Color.LightGray; }
+        private void textBox212_Click(object sender, EventArgs e) { X_neu = textBox211; Y_neu = textBox210; H_neu = textBox209; Weiß(); textBox212.BackColor = Color.LightGray; }
+        private void textBox216_Click(object sender, EventArgs e) { X_neu = textBox215; Y_neu = textBox214; H_neu = textBox213; Weiß(); textBox216.BackColor = Color.LightGray; }
+        private void textBox220_Click(object sender, EventArgs e) { X_neu = textBox219; Y_neu = textBox218; H_neu = textBox217; Weiß(); textBox220.BackColor = Color.LightGray; }
+        private void textBox224_Click(object sender, EventArgs e) { X_neu = textBox223; Y_neu = textBox222; H_neu = textBox221; Weiß(); textBox224.BackColor = Color.LightGray; }
+        private void textBox228_Click(object sender, EventArgs e) { X_neu = textBox227; Y_neu = textBox226; H_neu = textBox225; Weiß(); textBox228.BackColor = Color.LightGray; }
+        private void textBox232_Click(object sender, EventArgs e) { X_neu = textBox231; Y_neu = textBox230; H_neu = textBox229; Weiß(); textBox232.BackColor = Color.LightGray; }
+        private void textBox236_Click(object sender, EventArgs e) { X_neu = textBox235; Y_neu = textBox234; H_neu = textBox233; Weiß(); textBox236.BackColor = Color.LightGray; }
+        private void textBox240_Click(object sender, EventArgs e) { X_neu = textBox239; Y_neu = textBox238; H_neu = textBox237; Weiß(); textBox240.BackColor = Color.LightGray; }
+        private void textBox244_Click(object sender, EventArgs e) { X_neu = textBox243; Y_neu = textBox242; H_neu = textBox241; Weiß(); textBox244.BackColor = Color.LightGray; }
+        private void textBox248_Click(object sender, EventArgs e) { X_neu = textBox247; Y_neu = textBox246; H_neu = textBox245; Weiß(); textBox248.BackColor = Color.LightGray; }
+        private void textBox252_Click(object sender, EventArgs e) { X_neu = textBox251; Y_neu = textBox250; H_neu = textBox249; Weiß(); textBox252.BackColor = Color.LightGray; }
+        private void textBox256_Click(object sender, EventArgs e) { X_neu = textBox255; Y_neu = textBox254; H_neu = textBox253; Weiß(); textBox256.BackColor = Color.LightGray; }
+        private void textBox260_Click(object sender, EventArgs e) { X_neu = textBox259; Y_neu = textBox258; H_neu = textBox257; Weiß(); textBox260.BackColor = Color.LightGray; }
+        private void textBox264_Click(object sender, EventArgs e) { X_neu = textBox263; Y_neu = textBox262; H_neu = textBox261; Weiß(); textBox264.BackColor = Color.LightGray; }
+        private void textBox268_Click(object sender, EventArgs e) { X_neu = textBox267; Y_neu = textBox266; H_neu = textBox265; Weiß(); textBox268.BackColor = Color.LightGray; }
+        private void textBox272_Click(object sender, EventArgs e) { X_neu = textBox271; Y_neu = textBox270; H_neu = textBox269; Weiß(); textBox272.BackColor = Color.LightGray; }
+        private void textBox276_Click(object sender, EventArgs e) { X_neu = textBox275; Y_neu = textBox274; H_neu = textBox273; Weiß(); textBox276.BackColor = Color.LightGray; }
+        private void textBox280_Click(object sender, EventArgs e) { X_neu = textBox279; Y_neu = textBox278; H_neu = textBox277; Weiß(); textBox280.BackColor = Color.LightGray; }
+        private void textBox284_Click(object sender, EventArgs e) { X_neu = textBox283; Y_neu = textBox282; H_neu = textBox281; Weiß(); textBox284.BackColor = Color.LightGray; }
+        private void textBox288_Click(object sender, EventArgs e) { X_neu = textBox287; Y_neu = textBox286; H_neu = textBox285; Weiß(); textBox288.BackColor = Color.LightGray; }
+        private void textBox292_Click(object sender, EventArgs e) { X_neu = textBox291; Y_neu = textBox290; H_neu = textBox289; Weiß(); textBox292.BackColor = Color.LightGray; }
+        private void textBox296_Click(object sender, EventArgs e) { X_neu = textBox295; Y_neu = textBox294; H_neu = textBox293; Weiß(); textBox296.BackColor = Color.LightGray; }
+        private void textBox300_Click(object sender, EventArgs e) { X_neu = textBox299; Y_neu = textBox298; H_neu = textBox297; Weiß(); textBox300.BackColor = Color.LightGray; }
+        private void textBox304_Click(object sender, EventArgs e) { X_neu = textBox303; Y_neu = textBox302; H_neu = textBox301; Weiß(); textBox304.BackColor = Color.LightGray; }
+        private void textBox308_Click(object sender, EventArgs e) { X_neu = textBox307; Y_neu = textBox306; H_neu = textBox305; Weiß(); textBox308.BackColor = Color.LightGray; }
+        private void textBox312_Click(object sender, EventArgs e) { X_neu = textBox311; Y_neu = textBox310; H_neu = textBox309; Weiß(); textBox312.BackColor = Color.LightGray; }
 
 
     }
